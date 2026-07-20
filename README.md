@@ -52,7 +52,7 @@ list1 = [1, 2, 3, 4, 5]
 
 ---
 
-### 🛠️ Key Concepts & Functions Covered
+### 🛠️ 2. Key Concepts & Functions Covered
 
 #### 📐 Length of a List (`len()`)
 The `len()` function returns the number of items (length) in an object, such as a list or a string.
@@ -70,6 +70,7 @@ The `sum()` function returns the sum of all elements in an iterable (like a list
 my_list = [1, 2, 3, 4, 5]
 list_sum = sum(my_list) # Returns 15 (1 + 2 + 3 + 4 + 5)
 print(list_sum)
+```
 
 ---
 
