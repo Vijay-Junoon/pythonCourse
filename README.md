@@ -52,7 +52,7 @@ list1 = [1, 2, 3, 4, 5]
 
 ---
 
-### 🛠️ Key Concepts & Functions Covered
+### 🛠️ 2. Key Concepts & Functions Covered
 
 #### 📐 Length of a List (`len()`)
 The `len()` function returns the number of items (length) in an object, such as a list or a string.
@@ -70,6 +70,7 @@ The `sum()` function returns the sum of all elements in an iterable (like a list
 my_list = [1, 2, 3, 4, 5]
 list_sum = sum(my_list) # Returns 15 (1 + 2 + 3 + 4 + 5)
 print(list_sum)
+```
 
 ```
 
@@ -234,4 +235,139 @@ elif num >= 21 and num <= 60:
 else:
     print("Number less than 100.")
 ```
+
+---
+
+## 📅 Day 3: Loops, Control Statements & Practical Examples
+
+On Day 3, we explored loops in Python, learning why loops are necessary, how to use `for` and `while` loops, loop control flow statements (`break` and `continue`), and solved basic practical examples.
+
+### 🔁 1. Why Loops?
+
+Loops allow us to execute a block of code repeatedly without writing repetitive lines of code.
+
+#### ❌ Without Loops (Repetitive Code)
+```python
+num = 0
+print(num)
+num += 1
+print(num)
+num += 1
+print(num)
+```
+
+#### ✅ With Loops (Clean & Efficient Code)
+```python
+for num in range(0, 6):
+    print(num, end=", ")
+```
+
+---
+
+### 🔄 2. Types of Loops
+
+#### 🔂 For Loop
+A `for` loop is used to iterate over a sequence (such as a `range()` object, string, or list).
+
+```python
+# Iterating over numbers from 0 to 5
+for num in range(0, 6):
+    print(num, end=", ")
+```
+
+#### 🔁 While Loop
+A `while` loop executes a block of statements repeatedly as long as the specified condition remains `True`.
+
+```python
+# Printing numbers from 0 to 5 using a while loop
+num = 0
+while num <= 5:
+    print(num)
+    num += 1
+```
+
+##### 🎓 Practical Example: Condition-driven `while` loop
+```python
+# Student holiday problem
+adminMsg = True
+while adminMsg != False:
+    print("Student goes to college")
+    adminMsg = bool(input("College there or not? "))
+print("It is a holiday today!")
+```
+
+---
+
+### 🛑 3. Loop Control Statements
+
+#### ⏹️ `break` Statement
+The `break` statement terminates the loop execution immediately when encountered and shifts execution control to the code after the loop.
+
+```python
+# Terminate loop as soon as the target letter is found
+word = "apple"
+letter = "p"
+found = False
+
+for i in range(0, len(word)):
+    print(f"Checking! {word[i]}")
+    if word[i] == letter:
+        found = True
+        print(f"Found at index: {i}")
+        break  # Exit loop immediately
+```
+
+#### ⏭️ `continue` Statement
+The `continue` statement skips the rest of the current loop iteration and moves directly to the next iteration.
+
+```python
+# Skip even numbers and print only odd numbers
+end = 10
+for i in range(0, end + 1):
+    if i % 2 == 0:
+        continue  # Skip even numbers
+    print(i)
+```
+
+---
+
+### 💡 4. Basic Examples & Problem Solving
+
+#### 1️⃣ Sum of First `n` Numbers
+Calculating the sum of numbers from `1` to `n` using a `for` loop.
+
+```python
+n = int(input("Enter value of n: "))
+result = 0
+for i in range(1, n + 1):
+    result += i
+print("Sum:", result)
+```
+
+#### 2️⃣ Search Character in String (Linear Search)
+Using index-based iteration with a `for` loop and `break` to locate a letter in a word.
+
+```python
+word = "apple"
+letter = input("Enter a letter to be searched! ")
+found = False
+
+for i in range(0, len(word)):
+    print(f"Checking! {word[i]}")
+    if word[i] == letter:
+        found = True
+        print(f"Found at index: {i}")
+        break
+
+if not found:
+    print(-1)
+```
+
+#### 3️⃣ Iterating Through Characters of a String
+Accessing string characters sequentially using index range.
+
+```python
+word = input("Enter word: ")
+for i in range(0, len(word)):
+    print(word[i])
 ```
