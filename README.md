@@ -72,6 +72,8 @@ list_sum = sum(my_list) # Returns 15 (1 + 2 + 3 + 4 + 5)
 print(list_sum)
 ```
 
+```
+
 ---
 
 ## 📅 Day 2: Operators, Control Flow & Problem Solving
