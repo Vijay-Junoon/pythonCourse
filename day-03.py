@@ -15,7 +15,7 @@
 
 # For loop
 # for num in range(0,6):
-#   print(num, end = ",")
+#   print(num,end = " ")
 
 # While loop
 # num = 0
@@ -66,8 +66,8 @@
 #   print("Looping")
 #   status = True
 
-word = input("Enter word: ")
-# Indexing
-for i in range(0,len(word)):
-  print(word[i])
+# word = input("Enter word: ")
+# # Indexing
+# for i in range(0,len(word)):
+#   print(word[i])
 
