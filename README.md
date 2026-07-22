@@ -72,6 +72,8 @@ list_sum = sum(my_list) # Returns 15 (1 + 2 + 3 + 4 + 5)
 print(list_sum)
 ```
 
+```
+
 ---
 
 ## 📅 Day 2: Operators, Control Flow & Problem Solving
@@ -370,6 +372,7 @@ for i in range(0, len(word)):
     print(word[i])
 ```
 
+
 ---
 
 ## 📅 Day 4: Python Lists - Operations & Basic Problems
@@ -494,3 +497,5 @@ for num in parent:
 print("Even array: ", *even)  # Output: Even array:  2 4 6 8 10
 print(f"Odd: {odd}")          # Output: Odd: [1, 3, 5, 7, 9]
 ```
+=======
+>>>>>>> 1925b36d8c8ae39dcd8f32f94ff05ad36a823101
