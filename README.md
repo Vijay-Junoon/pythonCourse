@@ -369,3 +369,128 @@ word = input("Enter word: ")
 for i in range(0, len(word)):
     print(word[i])
 ```
+
+---
+
+## 📅 Day 4: Python Lists - Operations & Basic Problems
+
+On Day 4, we explored Python lists in detail, learning how to define them, modify them using built-in methods, perform mathematical and ordering operations, and solve basic list manipulation problems.
+
+### 📋 1. List Definition
+A list is a built-in, ordered, and mutable sequence in Python. It can store elements of various data types, including other lists.
+
+```python
+# Creating an empty list using list() constructor
+nums = list()
+print(nums)  # Output: []
+
+# Creating a list using square brackets
+nums = [1, 2, 3]
+print(nums)  # Output: [1, 2, 3]
+```
+
+---
+
+### 🛠️ 2. Key List Operations & Methods
+
+#### ➕ Appending Elements (`append()`)
+Adds an element to the end of the list.
+```python
+nums = [1, 2, 3]
+nums.append(4)
+print(nums)  # Output: [1, 2, 3, 4]
+
+# Appending a list inside a list (nested list)
+nums.append([5, 6])
+print(nums)  # Output: [1, 2, 3, 4, [5, 6]]
+```
+
+#### 🗑️ Deleting Elements (`pop()` & `remove()`)
+- **`pop()`**: Removes and returns the last element of the list (or an element at a specified index).
+- **`remove()`**: Removes the first occurrence of a specific value.
+
+```python
+# Using pop() to remove the last element
+nums = [1, 2, 3, [4, 5, 6]]
+nums.pop()
+print(nums)  # Output: [1, 2, 3]
+
+# Using remove() to remove a specific item
+nums = [1, 2, 3, [4, 5, 6]]
+nums.remove([4, 5, 6])
+print(nums)  # Output: [1, 2, 3]
+```
+
+#### 📥 Inserting Elements (`insert()`)
+Inserts an element at a specified index.
+```python
+nums = [1, 2, 3]
+# Insert value 4 at index 1
+nums.insert(1, 4)
+print(nums)  # Output: [1, 4, 2, 3]
+```
+
+#### 📊 Utilities (`len()` & `sum()`)
+- **`len()`**: Returns the number of elements in a list.
+- **`sum()`**: Calculates the total sum of elements in a numerical list.
+
+```python
+nums = [1, 2, 3]
+print(len(nums))  # Output: 3
+print(sum(nums))  # Output: 6
+```
+
+#### 🔢 Sorting (`sort()`)
+Sorts the items of the list in-place (ascending by default, or descending if `reverse=True` is provided).
+```python
+nums = [1, 6, 2, 5, 3, 4]
+
+# Ascending order
+nums.sort()
+print(nums)  # Output: [1, 2, 3, 4, 5, 6]
+
+# Descending order
+nums.sort(reverse=True)
+print(nums)  # Output: [6, 5, 4, 3, 2, 1]
+```
+
+#### ↩️ Reversing a List using Slicing (`[::-1]`)
+Reverses the elements of a list using Python's slicing syntax.
+```python
+nums = [1, 5, 2, 4, 3]
+reversed_nums = nums[::-1]
+print(reversed_nums)  # Output: [3, 4, 2, 5, 1]
+```
+
+---
+
+### 💡 3. Basic Problems Covered
+
+#### 1️⃣ Build a List from User Input
+Taking the number of elements as input and dynamically building a list with user inputs.
+```python
+n = int(input("Enter n: "))
+parent = []
+
+for chance in range(0, n):
+    element = int(input("Enter element: "))
+    parent.append(element)
+
+print("Constructed list:", parent)
+```
+
+#### 2️⃣ Separate Even and Odd Numbers
+Iterating through a list of integers and partitioning them into two lists of even and odd numbers.
+```python
+parent = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even, odd = [], []
+
+for num in parent:
+    if num % 2 == 0:
+        even.append(num)
+    else:
+        odd.append(num)
+
+print("Even array: ", *even)  # Output: Even array:  2 4 6 8 10
+print(f"Odd: {odd}")          # Output: Odd: [1, 3, 5, 7, 9]
+```
