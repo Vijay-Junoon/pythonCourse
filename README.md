@@ -497,5 +497,118 @@ for num in parent:
 print("Even array: ", *even)  # Output: Even array:  2 4 6 8 10
 print(f"Odd: {odd}")          # Output: Odd: [1, 3, 5, 7, 9]
 ```
-=======
->>>>>>> 1925b36d8c8ae39dcd8f32f94ff05ad36a823101
+
+---
+
+## 📅 Day 5: Python Dictionaries - Basics & Anagram Problem
+
+On Day 5, we explored Python dictionaries, learning the basics of key-value pairs, key insertion, updation, deletion, and essential methods like `.keys()` and `.values()`. We also solved the Anagram problem using dictionaries.
+
+### 📖 1. What is a Dictionary?
+A dictionary is an ordered (as of Python 3.7) and mutable collection of key-value pairs. In a dictionary, keys must be unique and immutable (such as strings, numbers, or tuples), while values can be of any data type and can repeat.
+
+```python
+# Creating a dictionary
+student = {
+    "s_id": 100,
+    "name": "Ajay",
+    "marks": [85, 90, 92],
+    "contact": {"dad": 1234567890, "mom": 9876543210}
+}
+```
+
+---
+
+### 🛠️ 2. Key Dictionary Operations
+
+#### 📥 Insertion & Updation
+We insert new keys or update existing keys using the square bracket notation `[]`.
+- If the key does not exist in the dictionary, a new key-value pair is inserted.
+- If the key already exists, its value is updated.
+
+```python
+d = {}
+
+# Inserting new keys
+d['name'] = "Ajay"
+d['age'] = 20
+print(d)  # Output: {'name': 'Ajay', 'age': 20}
+
+# Updating an existing key
+d['age'] = 21
+print(d)  # Output: {'name': 'Ajay', 'age': 21}
+```
+
+#### 🗑️ Deletion
+We can remove key-value pairs from a dictionary using the `del` keyword or the `.pop()` method.
+- **`del d[key]`**: Deletes the key-value pair. Raises a `KeyError` if the key does not exist.
+- **`d.pop(key)`**: Deletes the key-value pair and returns its value.
+
+```python
+d = {'name': 'Ajay', 'age': 21, 'city': 'Mumbai'}
+
+# Using del keyword
+del d['city']
+print(d)  # Output: {'name': 'Ajay', 'age': 21}
+
+# Using pop() method
+age = d.pop('age')
+print(age)  # Output: 21
+print(d)    # Output: {'name': 'Ajay'}
+```
+
+---
+
+### 🔍 3. Built-in Methods: `.keys()` & `.values()`
+
+- **`.keys()`**: Returns a view object containing all the keys of the dictionary.
+- **`.values()`**: Returns a view object containing all the values of the dictionary.
+
+```python
+d = {'name': 'Ajay', 'age': 21, 'role': 'Student'}
+
+# Get all keys
+print(d.keys())    # Output: dict_keys(['name', 'age', 'role'])
+
+# Get all values
+print(d.values())  # Output: dict_values(['Ajay', 21, 'Student'])
+
+# Iterating through keys and values
+for key in d.keys():
+    print(f"Key: {key}")
+
+for val in d.values():
+    print(f"Value: {val}")
+```
+
+---
+
+### 💡 4. Anagram Problem Using Dictionaries
+
+An **Anagram** is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once (e.g., *listen* and *silent*).
+
+#### 🧮 Solution Strategy
+We can determine if two words are anagrams by checking if their character frequency distributions are identical. We construct a frequency dictionary for both words using the `.get()` method to handle missing keys gracefully, then compare the two dictionaries.
+
+```python
+# Check if two words are anagrams
+w1 = input("Enter word 1: ")
+w2 = input("Enter word 2: ")
+
+d1 = {}
+d2 = {}
+
+# Populate frequency dictionary for word 1
+for ch in w1:
+    d1[ch] = d1.get(ch, 0) + 1
+
+# Populate frequency dictionary for word 2
+for ch in w2:
+    d2[ch] = d2.get(ch, 0) + 1
+
+# Compare the two dictionaries
+if d1 == d2:
+    print("Anagram")
+else:
+    print("Not Anagram")
+```
