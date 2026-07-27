@@ -612,3 +612,89 @@ if d1 == d2:
 else:
     print("Not Anagram")
 ```
+
+---
+
+## 📅 Day 7: Python Functions (Week 2)
+
+On Day 7, we introduced functions in Python. We covered function definitions, function calls, parameters, arguments, return statements, and walked through several illustrative examples.
+
+### 🧩 1. What is a Function?
+A function is a block of organized, reusable code that is used to perform a single, related action. Functions provide better modularity for your application and a high degree of code reusing.
+
+---
+
+### ✍️ 2. Function Definition & Function Call
+
+#### 🔹 Function Definition
+To define a function, use the `def` keyword followed by the function name and parentheses `()`. Any input parameters or arguments should be placed within these parentheses.
+```python
+def greet(text_message):
+    print(text_message)
+```
+
+#### 🔹 Function Call
+To execute the function, call it by its name followed by parentheses containing the required arguments.
+```python
+greet(54)
+```
+
+---
+
+### 📥 3. Parameters vs. Arguments
+- **Parameters**: The variables listed inside the parentheses in the function definition. They act as placeholders for the data the function needs.
+- **Arguments**: The actual values passed to the function when it is called.
+
+---
+
+### 📤 4. Return Statements
+The `return` statement is used to exit a function and pass a value back to the caller.
+```python
+def add(a, b):
+    s = a + b
+    return s
+
+sum1 = add(1, 2)
+sum2 = add(sum1, 3)
+print(sum2)  # Output: 6
+```
+
+---
+
+### 💡 5. Practical Examples Covered
+
+#### 1️⃣ Count Positive Numbers in a List
+A function that counts and returns the number of positive elements in a list.
+```python
+def countPos(user_list):
+    pos = 0
+    for i in user_list:
+        if i > 0:
+            pos += 1
+    return pos
+
+l1 = [0, -1, 1, 2, 3]
+l2 = [0, -1, -2, 3, 5]
+
+pos_l1 = countPos(l1)
+pos_l2 = countPos(l2)
+
+if pos_l1 == pos_l2:
+    print("Same Pos Nums")
+else:
+    print("No")
+```
+
+#### 2️⃣ Check Even or Odd (with User Input)
+A function that checks if a number is even or odd, takes input from the user, and prints the result.
+```python
+def even_odd(val):
+    if val % 2 == 0:
+        return f"Number {val} is even"
+    else:
+        return f"Number {val} is odd"
+
+val1 = int(input("Enter the number: "))
+result = even_odd(val1)
+print(result)
+```
