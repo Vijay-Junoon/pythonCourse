@@ -2,6 +2,7 @@
 # nums = list()
 # print(nums)
 # Append
+# var.method(arguement)
 # nums.append(1)
 # nums.append(2)
 # nums.append(3)
