@@ -698,3 +698,113 @@ val1 = int(input("Enter the number: "))
 result = even_odd(val1)
 print(result)
 ```
+
+---
+
+## 📅 Day 8: Scope (Local vs. Global Variables) & Function Annotations
+
+On Day 8, we covered variable scopes (local vs. global), function annotations (type hints), and walked through two basic practical examples: Palindrome Checking and Factorial Computation.
+
+### 🌐 1. Local vs. Global Variables
+
+In Python, the scope of a variable refers to the region of the program where a variable is recognized and can be accessed.
+
+#### 🏠 Local Variables
+Variables defined inside a function are local to that function. They are created when the function starts executing and are destroyed when the function returns. They cannot be accessed from outside the function.
+
+```python
+def my_function():
+    x = 10  # Local variable
+    print("Inside function:", x)
+
+my_function()
+# print(x)  # This will raise a NameError because x is local to my_function
+```
+
+#### 🌍 Global Variables
+Variables defined outside of any function are global variables. They can be accessed from anywhere within the program, including inside functions (for reading).
+
+```python
+y = 20  # Global variable
+
+def print_y():
+    print("Inside function:", y)  # Accessing global variable
+
+print_y()
+print("Outside function:", y)
+```
+
+#### 🔑 Modifying Global Variables (`global` Keyword)
+To modify a global variable inside a function, you must declare it using the `global` keyword.
+
+```python
+counter = 0  # Global variable
+
+def increment():
+    global counter  # Declare intention to modify the global variable
+    counter += 1
+
+increment()
+print(counter)  # Output: 1
+```
+
+---
+
+### 🏷️ 2. Function Annotations
+
+Function annotations are optional metadata about the types used by user-defined functions. They act as **type hints** to specify what type of arguments a function expects and what type it returns. Python ignores them at runtime, but they are highly useful for documentation and static analysis tools.
+
+#### ✍️ Syntax:
+- **Parameter Annotations**: `parameter: type`
+- **Return Annotation**: `-> type`
+
+```python
+# Annotation indicates name is a string, age is an integer, and the function returns a string
+def greet(name: str, age: int) -> str:
+    return f"Hello {name}, you are {age}."
+```
+
+---
+
+### 💡 3. Basic Examples Covered
+
+#### 1️⃣ Palindrome Checking
+A basic example demonstrating string slicing to check if a word is a palindrome, using function annotations.
+
+```python
+# Function with type annotations
+def palindromeChecker(word: str) -> bool:
+    # 'word' is a local variable/parameter
+    is_palindrome = (word == word[::-1])  # 'is_palindrome' is a local variable
+    return is_palindrome
+
+# 'userInput' is a global variable
+userInput = input("Enter a word: ")
+if palindromeChecker(userInput):
+    print("Yes it's a palindrome")
+else:
+    print("No it's not a palindrome")
+```
+
+#### 2️⃣ Compute Factorial
+A function to compute the factorial of a number using a loop, demonstrating local variable accumulator and annotations.
+
+```python
+# Function with type annotations.
+# Note: In our script, we return a string message if input is invalid,
+# so the return type can be either int or str.
+def computeFactorial(n: int) -> int | str:
+    # 'n' is a local parameter
+    if n < 0:
+        return "Please enter a value greater than or equal to 0"
+    
+    fact = 1  # 'fact' is a local variable
+    for i in range(1, n + 1):  # 'i' is a local loop variable
+        fact *= i
+
+    return fact
+
+# 'n' is a global variable in the main block
+n = int(input("Enter a number: "))
+print(f"Factorial of {n} is: {computeFactorial(n)}")
+```
