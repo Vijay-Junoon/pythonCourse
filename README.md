@@ -808,3 +808,87 @@ def computeFactorial(n: int) -> int | str:
 n = int(input("Enter a number: "))
 print(f"Factorial of {n} is: {computeFactorial(n)}")
 ```
+
+---
+
+## 📅 Day 9: Nested Functions & ATM Simulation Example
+
+On Day 9, we covered **nested functions** (also known as **inner functions**), their scope, and implemented an ATM simulation program to demonstrate how multiple nested functions can be structured inside a single parent function.
+
+### 🧩 1. What is a Nested Function?
+
+A **nested function** is a function defined inside another function. In Python, functions are first-class citizens, meaning they can be defined anywhere, passed as arguments, and returned from other functions.
+
+#### 🔹 Syntax
+```python
+def outer_function():
+    # Outer function scope
+    def inner_function():
+        # Inner function scope
+        pass
+    inner_function()  # Call the inner function inside the outer function
+```
+
+#### 🔑 Key Characteristics:
+1. **Encapsulation & Information Hiding**: The inner function is not accessible from the global scope. It is hidden and only exists within the scope of the outer function.
+2. **Access to Outer Scope**: Inner functions can read variables defined in the outer function.
+
+---
+
+### 🏦 2. ATM Simulation Example
+
+To demonstrate nested functions, we implemented an ATM simulation program. In this example, the main function `atm()` contains three nested functions:
+- `validateUser`: Validates the PIN entered by the user.
+- `showBalance`: Displays the current balance.
+- `withdraw`: Validates the withdrawal amount and prints the transaction status.
+
+#### 📝 Python Code ([day_09.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_02/day_09.py))
+```python
+def atm():
+  balance = 1000
+
+  def validateUser(pin : int) -> bool:
+    """Check whether pin is correct."""
+    correct_pin = 2005
+
+    if pin == correct_pin:
+      return True
+    else:
+      return False
+
+  def showBalance(balance : int) -> None:
+    """Display current balance of the user."""
+    print(f"Current Balance: {balance}")
+
+  def withdraw(amount : int, balance : int) -> None:
+    """Perform the withdraw operation"""
+    if amount < 0:
+      print("Amount cannot be negative.")
+      return
+
+    if amount > balance:
+      print("Not enough funds.")
+      return
+
+    print("Please collect your cash.")
+    balance -= amount
+    showBalance(balance)
+
+  pin = int(input("Enter your PIN: "))
+  status = validateUser(pin)
+  if status is False:
+    print("PIN incorrect. Please try again.")
+    return
+
+  print("Authentication completed.")
+  showBalance(balance)
+
+  amount = int(input("Please enter amount greater than 0: "))
+  withdraw(amount, balance)
+
+atm()
+```
+
+#### 💡 Scope & Design Considerations:
+- **Encapsulation**: The helper functions `validateUser`, `showBalance`, and `withdraw` are defined inside `atm()`, preventing them from polluting the global namespace.
+- **Parameters**: `balance` is passed directly to `showBalance` and `withdraw` as an argument. Since integers are immutable in Python, assigning a new value to `balance` inside `withdraw` (via `balance -= amount`) only changes it inside the local scope of `withdraw`. It does not modify the `balance` variable in the outer `atm()` function. If we needed to modify the outer scope variable directly without passing parameters, we could use the `nonlocal` keyword.
