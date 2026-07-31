@@ -892,3 +892,69 @@ atm()
 #### 💡 Scope & Design Considerations:
 - **Encapsulation**: The helper functions `validateUser`, `showBalance`, and `withdraw` are defined inside `atm()`, preventing them from polluting the global namespace.
 - **Parameters**: `balance` is passed directly to `showBalance` and `withdraw` as an argument. Since integers are immutable in Python, assigning a new value to `balance` inside `withdraw` (via `balance -= amount`) only changes it inside the local scope of `withdraw`. It does not modify the `balance` variable in the outer `atm()` function. If we needed to modify the outer scope variable directly without passing parameters, we could use the `nonlocal` keyword.
+
+---
+
+## 📅 Day 10: Recursion & Factorial Example
+
+On Day 10, we covered **recursion**, including the concepts of a base case, recursive case, execution flow, the call stack, and analyzed a simple recursive [factorial](file:///c:/Users/vijay/Desktop/pythonCourse/week_02/day_10.py#L9-L14) function.
+
+### 🔄 1. What is Recursion?
+
+**Recursion** is a programming method where a function calls itself, either directly or indirectly, to solve a problem by dividing it into smaller subproblems of the same type.
+
+A proper recursive function contains two essential components:
+- **Base Case**: The termination condition under which the function stops calling itself and starts returning values. This prevents infinite recursion and stack overflow errors (`RecursionError` in Python).
+- **Recursive Case**: The code block where the function makes a recursive call to itself with a modified, usually smaller or simpler input, progressing toward the base case.
+
+---
+
+### 📥 2. The Recursive Stack & Flow
+
+When a recursive function is called, Python allocates a new frame on the **call stack** to manage its execution context (local variables, arguments, and return address).
+
+1. **Winding (Pushing)**: The function continuously calls itself, pushing a new frame onto the stack for each call, until the base case is met.
+2. **Unwinding (Popping)**: Upon hitting the base case, the function starts returning values. The stack frames are popped one by one, resolving the pending computations in reverse order until the original function call completes.
+
+#### 📊 Recursive Stack Flow for `factorial(5)`:
+```
+factorial(5)  -> waits for factorial(4)
+  factorial(4)  -> waits for factorial(3)
+    factorial(3)  -> waits for factorial(2)
+      factorial(2)  -> waits for factorial(1)
+        factorial(1) -> returns 1 (Base Case reached)
+      factorial(2)  -> returns 2 * 1 = 2
+    factorial(3)  -> returns 3 * 2 = 6
+  factorial(4)  -> returns 4 * 6 = 24
+factorial(5)  -> returns 5 * 24 = 120
+```
+
+---
+
+### 💡 3. Simple Factorial Recursive Example
+
+A classic example of recursion is computing the factorial of a number $n$ (written as $n!$).
+
+- **Mathematical Definition**: $n! = n \times (n-1)!$ for $n > 1$, and $1! = 1$ (the base case).
+
+#### 📝 Python Code ([day_10.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_02/day_10.py))
+
+```python
+# iteration
+# n = 5
+# pdt = 1
+# for i in range(1,n+1):
+#   pdt *= i
+# print(pdt)
+
+# recursion
+def factorial(n):
+  # base case - ends the recursion
+  if n == 1:
+    return 1
+  # recursive case
+  return n * factorial(n-1)
+
+print(factorial(5))
+```
+
