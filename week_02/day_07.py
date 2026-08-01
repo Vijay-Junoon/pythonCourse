@@ -1,21 +1,21 @@
-# l1 = [0,-1,1,2,3]
-# l2 = [0,-1,-2,3,5]
+l1 = [0,-1,1,2,3]
+l2 = [0,-1,-2,3,5]
 
-# def countPos(user_list):
-#   pos = 0
-#   for i in user_list:
-#     if i > 0:
-#       pos += 1
-#   return pos
+def countPos(user_list):
+  pos = 0
+  for i in user_list:
+    if i > 0:
+      pos += 1
+  return pos
 
-# pos_l1 = countPos(l1)
-# pos_l2 = countPos(l2)
+pos_l1 = countPos(l1)
+pos_l2 = countPos(l2)
 
 
-# if pos_l1 == pos_l2:
-#   print("Same Pos Nums")
-# else:
-#   print("No")
+if pos_l1 == pos_l2:
+  print("Same Pos Nums")
+else:
+  print("No")
 
 # Function Definition
 # def greet(text_message):
