@@ -1,6 +1,6 @@
 # Python Course
 
-A repository documenting my learning journey in Python.
+A repository that contains all resources related to the 4 week Python course.
 
 ---
 
@@ -958,3 +958,138 @@ def factorial(n):
 print(factorial(5))
 ```
 
+---
+
+## 📅 Day 12: File Handling in Python
+
+On Day 12, we covered the fundamentals of **File Handling** in Python, including the context manager (`with` keyword), file pointers, avoiding dangling pointers, different file modes, and operations like reading, writing, and appending. We also explored copying files and implemented a practical logging script in [file_activity.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/file_activity.py).
+
+### 📁 1. Introduction to File Handling & The `with` Statement
+
+File handling allows Python programs to read from and write to files on the disk, enabling data persistence.
+
+#### 🔑 The `with` Keyword (Context Manager)
+The recommended way to open files in Python is using the `with` statement. It acts as a context manager that automatically handles resource allocation and ensures the file is properly closed after the block of code finishes executing, even if an exception or error occurs.
+
+##### ❌ Without `with` (Manual Closing)
+If we don't use `with`, we must manually call `.close()`. Failing to close a file can lead to resource leaks and locked files.
+```python
+file = open("file.txt", "r")
+data = file.read()
+print(data)
+file.close() # Easily forgotten!
+```
+
+##### ✅ With `with` (Auto-Closing)
+The file is closed automatically as soon as the execution leaves the `with` block.
+```python
+with open("file.txt", "r") as fp:
+    data = fp.read()
+    print(data)
+# File is closed automatically here!
+```
+
+---
+
+### 📍 2. File Pointer & Dangling Pointer
+
+#### 🎯 What is a File Pointer?
+A **file pointer** (e.g., `fp` in `with open(...) as fp`) is a reference or cursor that points to a specific position within the file. When a file is opened, the pointer starts at a default position (usually the beginning `0`, or the end in append mode). Any read or write operations move the file pointer forward by the number of bytes read/written.
+
+#### ⚠️ Dangling File Pointer
+A **dangling file pointer** or dangling reference occurs when a file pointer variable is accessed after the underlying file resource has been closed. Trying to perform I/O operations on a closed file pointer will raise a `ValueError`.
+
+```python
+with open("file.txt", "r") as fp:
+    data = fp.read()
+
+# The file is now closed. fp is a dangling pointer/reference.
+# Attempting to read from it now will raise an error:
+try:
+    fp.read()
+except ValueError as e:
+    print(f"Error: {e}")  # Output: I/O operation on closed file.
+```
+
+---
+
+### ⚙️ 3. File Modes in Python
+
+When opening a file using `open()`, we specify a **mode** to define the allowed operations:
+
+| Mode | Name | Description | Pointer Position | File Creation | Behavior if File Exists |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`'r'`** | Read | Opens file for reading (default). | Beginning (`0`) | Raises `FileNotFoundError` | Opens normally |
+| **`'w'`** | Write | Opens file for writing. | Beginning (`0`) | Creates new file | Truncates (clears) existing content |
+| **`'a'`** | Append | Opens file for appending. | End of file | Creates new file | Keeps existing content and appends to end |
+
+---
+
+### 🛠️ 4. Reading, Writing, & Appending Operations
+
+#### 📖 Reading a File (`'r'`)
+Reads content from an existing file.
+```python
+# [day_12.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_12.py)
+with open("file.txt", "r") as fp:
+    data = fp.read()
+    print(data)
+```
+
+#### ✍️ Writing to a File (`'w'`)
+Writes new content to a file, overwriting any previous content.
+```python
+# [day_12.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_12.py)
+with open("file.txt", "w") as fp:
+    data = "XYZ"
+    fp.write(data)
+```
+
+#### ➕ Appending to a File (`'a'`)
+Adds content to the end of a file without deleting the existing content.
+```python
+# [day_12.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_12.py)
+with open("file.txt", "a") as fp:
+    new_data = "\nXYZ"
+    fp.write(new_data)
+```
+
+---
+
+### 📑 5. Copying Two Files
+
+To copy the contents of one file to another, we can combine read and write operations. We open the source file in read mode (`'r'`), read its contents, and then write those contents to the destination file in write mode (`'w'`).
+
+```python
+# Copy contents from f1.txt to f2.txt
+with open("f1.txt", "r") as source:
+    content = source.read()
+
+with open("f2.txt", "w") as destination:
+    destination.write(content)
+```
+
+---
+
+### 💡 6. Practical Logging Example: Date-Based Logs
+
+In [file_activity.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/file_activity.py), we implemented a script that collects user information (names and flat numbers) and logs them sequentially under a specific date in [log.txt](file:///c:/Users/vijay/Desktop/pythonCourse/log.txt). It leverages the append mode (`'a'`) to ensure that new logs are added to the end of the file without overwriting existing entries.
+
+#### 📝 Python Code ([file_activity.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/file_activity.py))
+```python
+with open("log.txt","a") as register:
+  date = "07/08/2026"
+  heading = f"\nLogged on {date}"
+  register.write(heading)
+  people = 4
+  # Iterate and collect details for 4 people
+  for i in range(people):
+    name = input("Enter the name: ")
+    flat_no = int(input("Enter flat no: "))
+
+    data = f"\n{i+1}){name} - {flat_no}"
+    register.write(data)
+
+  footer = f"\nLog completed for {date}"
+  register.write(footer)  
+```
