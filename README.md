@@ -1093,3 +1093,125 @@ with open("log.txt","a") as register:
   footer = f"\nLog completed for {date}"
   register.write(footer)  
 ```
+
+---
+
+## 📅 Day 13: Introduction to Pandas & Data Analysis
+
+On Day 13, we covered the basics of the **Pandas** library in Python, including how to install and import it, create DataFrames, load external CSV datasets, slice data using `iloc`, and perform basic data inspection and cleaning (detecting missing values and duplicates).
+
+### 📦 1. Installation & Setup
+
+To use Pandas, it first needs to be installed via `pip` (Python package installer) and then imported into the script or notebook.
+
+#### 📥 Installation
+Run the following command in your terminal:
+```bash
+pip install pandas
+```
+
+#### 🔌 Importing Pandas
+It is a standard convention to import Pandas under the alias `pd`:
+```python
+import pandas as pd
+```
+
+---
+
+### 🗃️ 2. Creating a DataFrame from a Dictionary
+
+A **DataFrame** is a two-dimensional, size-mutable, and tabular data structure with labeled axes (rows and columns). We can create a DataFrame from a standard Python dictionary.
+
+```python
+# [day_13.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_13.ipynb)
+emp_dict = {
+  'e_id': [1, 2, 3, 4],
+  'e_name': ["A", "B", "C", "D"],
+  'e_salary': [10, 20, 15, 30]
+}
+
+emp = pd.DataFrame(emp_dict)
+emp
+```
+
+**Output:**
+```
+   e_id e_name  e_salary
+0     1      A        10
+1     2      B        20
+2     3      C        15
+3     4      D        30
+```
+
+---
+
+### 🔍 3. Data Slicing with `iloc`
+
+The `.iloc` indexer is used for integer-location based indexing/selection by position.
+
+```python
+# [day_13.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_13.ipynb)
+# Selecting all rows and all columns
+emp.iloc[:, :]
+
+# Selecting all rows and only the first column
+emp.iloc[:, :1]
+```
+
+---
+
+### 📂 4. Reading CSV Files
+
+Pandas makes it easy to read data from external files, such as CSV files, using `pd.read_csv()`.
+
+```python
+# Load dataset from data.csv
+dataset = pd.read_csv('data.csv')
+```
+
+---
+
+### 📊 5. Data Inspection & Summarization
+
+Once a dataset is loaded, we can use several built-in Pandas methods to inspect and summarize the data.
+
+#### 🔝 `head()` and `tail()`
+- `head(n)` returns the first `n` rows of the DataFrame (defaults to 5).
+- `tail(n)` returns the last `n` rows of the DataFrame (defaults to 5).
+
+```python
+# View the first 5 rows
+dataset.head()
+
+# View the last 5 rows
+dataset.tail()
+```
+
+#### 📈 `describe()`
+The `describe()` method generates descriptive statistics of the numerical columns in the DataFrame, including count, mean, standard deviation, min, max, and percentiles.
+
+```python
+# Generate summary statistics
+dataset.describe()
+```
+
+---
+
+### 🧹 6. Basic Data Cleaning
+
+#### ❓ Checking for Missing Values (`isna().sum()`)
+The `isna()` method detects missing values, and appending `.sum()` counts the number of missing (NaN) values per column.
+
+```python
+# Count missing values in each column
+dataset.isna().sum()
+```
+
+#### 👯 Checking for Duplicate Rows (`duplicated().sum()`)
+The `duplicated()` method returns a boolean Series denoting duplicate rows, and `.sum()` counts the total number of duplicate rows.
+
+```python
+# Count duplicate rows
+dataset.duplicated().sum()
+```
+
