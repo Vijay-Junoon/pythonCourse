@@ -1215,3 +1215,85 @@ The `duplicated()` method returns a boolean Series denoting duplicate rows, and 
 dataset.duplicated().sum()
 ```
 
+---
+
+## 📅 Day 14: Data Cleaning & Feature Engineering with Pandas
+
+On Day 14, we covered data cleaning and feature engineering using **Pandas**, including checking for missing (null) values, handling duplicates, creating new columns through feature engineering, and saving the processed data back to a CSV.
+
+### 🧹 1. Handling Null (Missing) Values
+
+Missing values are identified using the `isna()` method. We can check the count of null values per column and fill them using `fillna()`.
+
+#### 🔍 Detecting Null Values
+To count the number of missing values in each column of the [orders.csv](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/orders.csv) dataset:
+```python
+# [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
+data.isna().sum()
+```
+
+#### 🛠️ Filling Missing Values (`fillna()`)
+We filled missing values in the dataset using different techniques:
+- **Quantity**: Replaced missing values with a default value of `1`.
+- **Price**: Replaced missing values with the mean of the `Price` column.
+- **Discount**: Replaced missing values with a default value of `50`.
+
+```python
+# [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
+# Fill missing Quantity with a constant
+data['Quantity'] = data['Quantity'].fillna(1)
+
+# Fill missing Price with the column mean
+data['Price'] = data['Price'].fillna(data['Price'].mean())
+
+# Fill missing Discount with a constant
+data['Discount'] = data['Discount'].fillna(50)
+```
+
+---
+
+### 👯 2. Handling Duplicate Values
+
+Duplicate entries can distort data analysis. We check for and drop duplicate rows to ensure data quality.
+
+#### 🔍 Counting Duplicate Rows
+To find the number of duplicate rows in the dataset:
+```python
+# [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
+data.duplicated().sum()
+```
+
+#### 🗑️ Dropping Duplicate Rows
+To remove the duplicates:
+```python
+# [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
+data.drop_duplicates()
+```
+
+---
+
+### ⚙️ 3. Feature Engineering
+
+Feature engineering is the process of creating new features from existing data. We created two new fields:
+1. `Total Price_BD`: Total price before discount (`Quantity * Price`).
+2. `Total Price`: Total price after subtracting the discount (`Total Price_BD - Discount`).
+
+```python
+# [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
+# Calculate total price before discount
+data['Total Price_BD'] = data['Quantity'] * data['Price']
+
+# Calculate total price after discount
+data['Total Price'] = data['Total Price_BD'] - data['Discount']
+```
+
+---
+
+### 💾 4. Saving Processed Data
+
+Once data cleaning and feature engineering are complete, the resulting DataFrame is saved to a new CSV file [processed_orders.csv](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/processed_orders.csv):
+
+```python
+# [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
+data.to_csv('processed_orders.csv')
+```
