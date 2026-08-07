@@ -1297,3 +1297,65 @@ Once data cleaning and feature engineering are complete, the resulting DataFrame
 # [day_14.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_14.ipynb)
 data.to_csv('processed_orders.csv')
 ```
+
+---
+
+## 📅 Day 15: Introduction to DBMS & PostgreSQL Basics
+
+On Day 15, we covered the basics of Database Management Systems (DBMS), distinguishing between structured and unstructured data, and learned how to interact with a relational database using PostgreSQL, focusing on creating tables, inserting data, and selecting data.
+
+### 🗄️ 1. Structured vs. Unstructured Data
+
+Data in the modern digital world can be categorized primarily into structured and unstructured formats:
+
+- **Structured Data**: Data that conforms to a strict, pre-defined schema or model. It is highly organized and typically stored in relational database tables with rows and columns. Examples include SQL databases, CSV files, and Excel spreadsheets.
+- **Unstructured Data**: Data that does not have a predefined format or organizational structure. It cannot be easily fit into a relational database table. Examples include text files, emails, images, videos, audio recordings, and PDFs.
+
+---
+
+### 🐘 2. PostgreSQL Basics
+
+PostgreSQL (often simply Postgres) is a powerful, open-source object-relational database management system (ORDBMS). It is known for its reliability, feature robustness, and performance.
+
+#### 🏗️ Creating a Table (`CREATE TABLE`)
+To store structured data, we define a table schema with columns and their corresponding data types.
+
+```sql
+-- Example: Creating a students table
+CREATE TABLE students (
+    student_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    grade VARCHAR(2),
+    enrolled_date DATE DEFAULT CURRENT_DATE
+);
+```
+
+#### 📥 Inserting Data (`INSERT INTO`)
+Once a table is created, we populate it by inserting rows of data.
+
+```sql
+-- Example: Inserting a single record
+INSERT INTO students (name, age, grade)
+VALUES ('Vijay', 21, 'A');
+
+-- Example: Inserting multiple records
+INSERT INTO students (name, age, grade)
+VALUES 
+    ('Arjun', 22, 'B'),
+    ('Priya', 20, 'A');
+```
+
+#### 🔍 Selecting Data (`SELECT`)
+We retrieve data from the database using queries.
+
+```sql
+-- Retrieve all columns and rows from the table
+SELECT * FROM students;
+
+-- Retrieve specific columns for students older than 20
+SELECT name, grade 
+FROM students 
+WHERE age > 20;
+```
+
