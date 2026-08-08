@@ -256,82 +256,219 @@ def append_practice_questions(story, h1_style, h2_style, h3_style, body_style, c
     story.append(Paragraph("Practice Questions", h1_style))
     story.append(Spacer(1, 10))
     
-    # --- PART A ---
-    story.append(Paragraph("Part A: File Handling & Pandas", h2_style))
+    # Table header and data cell styles for menu display
+    th_style = ParagraphStyle(
+        'TableHeader',
+        fontName='Helvetica-Bold',
+        fontSize=9.5,
+        leading=13,
+        textColor=colors.white
+    )
+    td_style = ParagraphStyle(
+        'TableCell',
+        fontName='Helvetica',
+        fontSize=9,
+        leading=13,
+        textColor=colors.HexColor("#2D3748")
+    )
+    
+    # --- SECTION 1 ---
+    story.append(Paragraph("1. Simulation of Real-Life Scenarios Using Functions", h2_style))
     story.append(Spacer(1, 6))
     
     # Q1
-    story.append(Paragraph("Question 1: Word Counter", h3_style))
-    story.append(Paragraph("Write a function <b>count_words(filename)</b> that takes a text file's name as input and returns the total number of words in that file.", body_style))
-    story.append(make_code_block("Example\nInput:\nfile.txt (containing 'Hello World from Python')\n\nOutput:\n4", code_style))
-    story.append(Spacer(1, 10))
+    story.append(Paragraph("Question 1 &mdash; Restaurant Billing System 🍽️", h3_style))
+    story.append(Paragraph("Create a Python program for a restaurant billing system using functions.", body_style))
+    
+    menu_data = [
+        [Paragraph("Item", th_style), Paragraph("Price", th_style)],
+        [Paragraph("Burger", td_style), Paragraph("Rs. 120", td_style)],
+        [Paragraph("Pizza", td_style), Paragraph("Rs. 250", td_style)],
+        [Paragraph("Pasta", td_style), Paragraph("Rs. 180", td_style)],
+        [Paragraph("Coke", td_style), Paragraph("Rs. 50", td_style)],
+        [Paragraph("Coffee", td_style), Paragraph("Rs. 80", td_style)],
+    ]
+    menu_table = Table(menu_data, colWidths=[150, 100], hAlign='LEFT')
+    menu_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#1A365D")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E2E8F0")),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.HexColor("#F7FAFC"), colors.white]),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('LEFTPADDING', (0,0), (-1,-1), 8),
+        ('RIGHTPADDING', (0,0), (-1,-1), 8),
+    ]))
+    story.append(menu_table)
+    story.append(Spacer(1, 8))
+    
+    story.append(Paragraph("<b>Requirements:</b>", body_style))
+    story.append(Paragraph("&bull; Display the menu.", bullet_style))
+    story.append(Paragraph("&bull; Ask the user to enter the item they want and its quantity.", bullet_style))
+    story.append(Paragraph("&bull; Allow the user to order multiple items.", bullet_style))
+    story.append(Paragraph("&bull; Create a function <b>calculate_bill()</b> that calculates the total cost.", bullet_style))
+    story.append(Paragraph("&bull; Create a function <b>calculate_discount()</b>: 10% discount if bill &ge; Rs. 1000, 5% discount if bill &ge; Rs. 500, otherwise no discount.", bullet_style))
+    story.append(Paragraph("&bull; Add 5% GST after applying the discount.", bullet_style))
+    story.append(Paragraph("&bull; Display: Items ordered, Quantity, Individual price, Subtotal, Discount, GST, and Final bill.", bullet_style))
+    
+    example_text_1 = (
+        "Example Output:\n\n"
+        "Burger x 2 = Rs. 240\n"
+        "Pizza x 1 = Rs. 250\n"
+        "Coke x 2 = Rs. 100\n\n"
+        "Subtotal: Rs. 590\n"
+        "Discount: Rs. 29.50\n"
+        "GST: Rs. 28.03\n"
+        "Final Bill: Rs. 588.53\n\n"
+        "Functions to use: display_menu(), take_order(), calculate_bill(), calculate_discount(), generate_bill()"
+    )
+    story.append(make_code_block(example_text_1, code_style))
+    story.append(Spacer(1, 14))
     
     # Q2
-    story.append(Paragraph("Question 2: Filter Orders by Price", h3_style))
-    story.append(Paragraph("Write a python function using Pandas that reads a CSV file <b>orders.csv</b>, fills missing <b>Quantity</b> values with a default value of 1, and filters the rows to keep only orders where the <b>Price</b> is greater than 100. Return the clean, filtered DataFrame.", body_style))
-    story.append(make_code_block("Example\nInput:\norders.csv\n\nOutput:\nFiltered DataFrame with non-null quantities and prices > 100", code_style))
-    story.append(Spacer(1, 10))
+    story.append(Paragraph("Question 2 &mdash; Cab Fare Calculator 🚕", h3_style))
+    story.append(Paragraph("Create a Python program that simulates a cab booking and fare calculation system using functions. The user should input customer name, distance travelled in km, and cab type.", body_style))
+    
+    cab_data = [
+        [Paragraph("Cab Type", th_style), Paragraph("Base Fare", th_style), Paragraph("Per KM", th_style)],
+        [Paragraph("Mini", td_style), Paragraph("Rs. 50", td_style), Paragraph("Rs. 12", td_style)],
+        [Paragraph("Sedan", td_style), Paragraph("Rs. 80", td_style), Paragraph("Rs. 15", td_style)],
+        [Paragraph("SUV", td_style), Paragraph("Rs. 120", td_style), Paragraph("Rs. 20", td_style)],
+    ]
+    cab_table = Table(cab_data, colWidths=[120, 100, 100], hAlign='LEFT')
+    cab_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#1A365D")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#E2E8F0")),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.HexColor("#F7FAFC"), colors.white]),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('LEFTPADDING', (0,0), (-1,-1), 8),
+        ('RIGHTPADDING', (0,0), (-1,-1), 8),
+    ]))
+    story.append(cab_table)
+    story.append(Spacer(1, 8))
+    
+    story.append(Paragraph("<b>Rules:</b>", body_style))
+    story.append(Paragraph("&bull; If distance &gt; 20 km &rarr; give 10% discount.", bullet_style))
+    story.append(Paragraph("&bull; If distance &gt; 50 km &rarr; give 15% discount.", bullet_style))
+    story.append(Paragraph("&bull; Add Rs. 30 booking charge.", bullet_style))
+    story.append(Paragraph("&bull; Add 5% tax after discount.", bullet_style))
+    story.append(Paragraph("&bull; Create functions: calculate_fare(), calculate_discount(), calculate_tax(), generate_receipt().", bullet_style))
+    
+    example_text_2 = (
+        "Example Output:\n\n"
+        "Customer: Vijay\n"
+        "Cab: Sedan\n"
+        "Distance: 25 km\n\n"
+        "Base Fare: Rs. 80\n"
+        "Distance Fare: Rs. 375\n"
+        "Discount: Rs. 45.50\n"
+        "Booking Charge: Rs. 30\n"
+        "Tax: Rs. 21.98\n\n"
+        "Final Fare: Rs. 461.48"
+    )
+    story.append(make_code_block(example_text_2, code_style))
+    story.append(Spacer(1, 14))
+    
+    # --- SECTION 2 ---
+    story.append(Paragraph("2. File Handling in Python 📁", h2_style))
+    story.append(Spacer(1, 6))
     
     # Q3
-    story.append(Paragraph("Question 3: Feature Engineering & De-duplication", h3_style))
-    story.append(Paragraph("Write a function that accepts a Pandas DataFrame, creates a new feature column <b>Total_Cost</b> calculated as <b>Quantity * Price</b>, removes any duplicate rows from the DataFrame, and returns the modified DataFrame.", body_style))
-    story.append(Spacer(1, 10))
+    story.append(Paragraph("Question 3 &mdash; Student Marks File", h3_style))
+    story.append(Paragraph("Create a Python program that manages student marks using a text file named <b>students.txt</b>. For each student, store their details as <b>Name,Marks</b>.", body_style))
     
-    # --- PART B ---
-    story.append(Paragraph("Part B: Relational Databases (PostgreSQL & SQLite)", h2_style))
-    story.append(Spacer(1, 6))
+    example_file_data = (
+        "students.txt Content:\n"
+        "Vijay,85\n"
+        "Rahul,72\n"
+        "Anu,91\n"
+        "Priya,68"
+    )
+    story.append(make_code_block(example_file_data, code_style))
+    story.append(Spacer(1, 8))
+    
+    story.append(Paragraph("<b>Requirements:</b>", body_style))
+    story.append(Paragraph("&bull; Implement functions: <b>add_student()</b>, <b>display_students()</b>, <b>calculate_average()</b>, <b>find_topper()</b>.", bullet_style))
+    story.append(Paragraph("&bull; Ask the user for name and marks, and append them to the file.", bullet_style))
+    story.append(Paragraph("&bull; Read the file, display all students, compute average marks, and identify the topper.", bullet_style))
+    
+    example_text_3 = (
+        "Example Output:\n\n"
+        "Students:\n"
+        "Vijay - 85\n"
+        "Rahul - 72\n"
+        "Anu - 91\n"
+        "Priya - 68\n\n"
+        "Average Marks: 79.0\n"
+        "Topper: Anu\n"
+        "Marks: 91\n\n"
+        "Concepts: open(), read(), readlines(), write(), with open(), modes (r, w, a)"
+    )
+    story.append(make_code_block(example_text_3, code_style))
+    story.append(Spacer(1, 14))
     
     # Q4
-    story.append(Paragraph("Question 4: SQL Table Definition", h3_style))
-    story.append(Paragraph("Write a SQL query to create a table named <b>inventory</b>. The table must have: <b>product_id</b> (SERIAL, PRIMARY KEY), <b>name</b> (VARCHAR, NOT NULL), <b>price</b> (NUMERIC, greater than 0), and <b>stock</b> (INTEGER, default 0).", body_style))
-    story.append(Spacer(1, 10))
+    story.append(Paragraph("Question 4 &mdash; Expense Tracker 💰", h3_style))
+    story.append(Paragraph("Create a simple expense tracker using file handling. Store details in <b>expenses.txt</b> in the format <b>Category,Amount</b>.", body_style))
     
-    # Q5
-    story.append(Paragraph("Question 5: Fetch Users from SQLite Database", h3_style))
-    story.append(Paragraph("Write a python function <b>fetch_all_users()</b> that connects to an SQLite database named <b>facebook.db</b>, executes a SELECT statement to retrieve all usernames and email addresses from the <b>users</b> table, and prints each user.", body_style))
-    story.append(make_code_block("Example Output:\nAjay ajay@mail.com\nVijay vijay@mail.com", code_style))
-    story.append(Spacer(1, 15))
+    story.append(Paragraph("<b>Requirements & Functions:</b>", body_style))
+    story.append(Paragraph("&bull; Implement functions: <b>add_expense()</b>, <b>display_expenses()</b>, <b>calculate_total()</b>, <b>category_total()</b>.", bullet_style))
+    story.append(Paragraph("&bull; Provide an interactive menu: 1. Add Expense, 2. View Expenses, 3. Calculate Total, 4. Expenses by Category, 5. Exit.", bullet_style))
+    story.append(Paragraph("&bull; Ensure that data remains saved in the file even after restarting the program.", bullet_style))
     
-    # --- SIMULATION ---
-    story.append(Paragraph("Simulation Question", h2_style))
+    example_text_4 = (
+        "Example File Data:\n"
+        "Food,250\n"
+        "Travel,500\n"
+        "Shopping,1200\n"
+        "Food,300\n\n"
+        "If selecting category 'Food' -> Food Expenses = Rs. 550\n"
+        "Total Expenses = Rs. 2250"
+    )
+    story.append(make_code_block(example_text_4, code_style))
+    story.append(Spacer(1, 14))
+    
+    # --- SECTION 3 ---
+    story.append(Paragraph("3. SQLite + Python Simulation 🗄️", h2_style))
     story.append(Spacer(1, 6))
     
-    story.append(Paragraph("<b>Problem Statement</b>", h3_style))
-    story.append(Paragraph("Design a Python program using SQLite3 to manage a simple Bookstore Inventory.", body_style))
-    story.append(Paragraph("Write a function named <b>bookstore()</b> that acts as the main program. Inside <b>bookstore()</b>, define the following nested helper functions:", body_style))
+    # Q5
+    story.append(Paragraph("Question 5 &mdash; User Authentication System 🔐", h3_style))
+    story.append(Paragraph("Create a simple user authentication system using Python and SQLite. Database: <b>users.db</b>. Table: <b>users</b> (columns: <b>id</b>, <b>username</b>, <b>password</b>).", body_style))
     
-    nested_list_style = ParagraphStyle(
-        'NestedListStyle',
-        parent=bullet_style,
-        leftIndent=25,
-        bulletIndent=15
+    story.append(Paragraph("<b>Requirements:</b>", body_style))
+    story.append(Paragraph("&bull; Provide options: 1. Register, 2. Login, 3. Exit.", bullet_style))
+    story.append(Paragraph("&bull; <b>Register</b>: Prompt for username and password. If the username exists, show error. Otherwise, insert record.", bullet_style))
+    story.append(Paragraph("&bull; <b>Login</b>: Prompt for credentials. Check database and print status.", bullet_style))
+    story.append(Paragraph("&bull; Use parameterized queries to prevent SQL Injection.", bullet_style))
+    story.append(Paragraph("&bull; <b>Challenge</b>: Add a <b>login_attempts</b> column and lock accounts after 3 failed attempts.", bullet_style))
+    
+    example_text_5 = (
+        "SQL Parameterized Query:\n"
+        "cursor.execute(\"SELECT * FROM users WHERE username = ? AND password = ?\", (username, password))"
     )
-    story.append(Paragraph("&bull; <b>add_book(title, author, price)</b> &ndash; Inserts a new book record into a table named <b>books</b>.", nested_list_style))
-    story.append(Paragraph("&bull; <b>view_books()</b> &ndash; Fetches and displays all books in the inventory.", nested_list_style))
-    story.append(Paragraph("&bull; <b>search_book(title)</b> &ndash; Searches and displays details of a book based on its title.", nested_list_style))
-    story.append(Spacer(1, 10))
+    story.append(make_code_block(example_text_5, code_style))
+    story.append(Spacer(1, 14))
     
-    story.append(Paragraph("<b>Database Schema</b>", h3_style))
-    story.append(Paragraph("The table <b>books</b> should contain the following fields: <b>title</b> (VARCHAR), <b>author</b> (VARCHAR), and <b>price</b> (FLOAT). Ensure the table is created automatically using a <b>CREATE TABLE IF NOT EXISTS</b> query at startup.", body_style))
-    story.append(Spacer(1, 10))
+    # Q6
+    story.append(Paragraph("Question 6 &mdash; ATM Simulation Using SQLite 🏦", h3_style))
+    story.append(Paragraph("Create a Python + SQLite program that simulates a basic ATM. Database: <b>bank.db</b>. Table: <b>accounts</b> (columns: <b>id</b>, <b>name</b>, <b>pin</b>, <b>balance</b>).", body_style))
     
-    story.append(Paragraph("<b>Sample Run</b>", h3_style))
-    sample_text = (
-        "Input / Operations:\n\n"
-        "Welcome to the Bookstore Inventory System\n\n"
-        "Select Choice:\n"
-        "1) Add Book  2) View Books  3) Search Book  4) Exit\n"
-        "Make your choice: 1\n\n"
-        "Enter title: Python Basics\n"
-        "Enter author: Guido van Rossum\n"
-        "Enter price: 450.0\n\n"
-        "Book added successfully.\n\n"
-        "Make your choice: 2\n\n"
-        "--------- BOOKS IN INVENTORY ---------\n"
-        "Python Basics - Guido van Rossum - Rs. 450.0\n"
-        "--------------------------------------\n"
+    story.append(Paragraph("<b>Requirements:</b>", body_style))
+    story.append(Paragraph("&bull; Authenticate using Account ID and PIN.", bullet_style))
+    story.append(Paragraph("&bull; Post-login menu: 1. Check Balance, 2. Deposit, 3. Withdraw, 4. Exit.", bullet_style))
+    story.append(Paragraph("&bull; Prevent withdrawal if balance is insufficient.", bullet_style))
+    story.append(Paragraph("&bull; <b>Challenge</b>: Add a <b>transactions</b> table (id, account_id, type, amount, timestamp) and record each deposit/withdrawal.", bullet_style))
+    
+    example_text_6 = (
+        "Check Balance Output Example:\n"
+        "Account Holder: Vijay\n"
+        "Balance: Rs. 50000\n\n"
+        "Deposit Example:\n"
+        "Enter amount: 5000\n"
+        "Deposit successful! New Balance: Rs. 55000"
     )
-    story.append(make_code_block(sample_text, code_style))
+    story.append(make_code_block(example_text_6, code_style))
 
 def generate_pdf(readme_path, output_pdf_path):
     # Setup document
