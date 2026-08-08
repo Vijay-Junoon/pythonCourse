@@ -1359,3 +1359,140 @@ FROM students
 WHERE age > 20;
 ```
 
+---
+
+## 📅 Day 16: SQLite3 in Python & Authentication Simulation
+
+On Day 16, we covered using the built-in `sqlite3` module in Python to interact with relational databases. We focused on connection establishment, database cursors, query execution, transactions, and built a command-line application in [main.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/main.py) to simulate user registration, login, and administration.
+
+### 🔌 1. Connection Establishment & Cursor
+
+SQLite is a serverless, self-contained database engine. Python has native support for SQLite via the `sqlite3` library.
+
+- **Connecting to Database**:
+  We use `sqlite3.connect('database_name.db')` to establish a connection. If the database file does not exist, SQLite will automatically create it.
+- **Database Cursor**:
+  A cursor object is created from the connection object via `conn.cursor()`. It serves as the gateway to execute SQL commands and retrieve query results.
+
+```python
+import sqlite3
+
+# Establish connection to the database
+conn = sqlite3.connect('facebook.db')
+
+# Create a cursor object
+cursor = conn.cursor()
+```
+
+---
+
+### 🗄️ 2. Executing Queries & Transaction Management
+
+- **Executing Queries**:
+  The `execute()` method on the cursor runs SQL commands. When inserting values, we pass parameters as a tuple to protect against SQL Injection.
+- **Committing Changes**:
+  For write operations (`INSERT`, `UPDATE`, `DELETE`), changes must be committed using `conn.commit()` to save them permanently to the database.
+- **Fetching Records**:
+  - `cursor.fetchone()`: Retrieves the next single row from the result set, or `None` if no more rows are available.
+  - `cursor.fetchall()`: Retrieves all matching rows from the query results as a list of tuples.
+
+#### 📝 Basic Example ([day_16.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/day_16.py))
+```python
+import sqlite3
+
+# Connect to database and retrieve a cursor
+conn = sqlite3.connect('test.db')
+cursor = conn.cursor()
+
+# Insert data
+query = "INSERT INTO users(id, name) VALUES(104,'XYZ'),(102,'Ajay'),(103,'ABC');"
+cursor.execute(query)
+conn.commit()
+
+# Query and fetch data
+query = "SELECT * FROM users;"
+cursor.execute(query)
+data = cursor.fetchall()
+for row in data:
+  print(*row)
+```
+
+---
+
+### 🔐 3. Authentication Simulation Program
+
+In [main.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/main.py), we built a command-line interface mimicking user registration, user login, and administrative listing of active records on a SQLite database.
+
+#### Feature Breakdown:
+1. **`createTable()`**: Sets up the table structure if the table doesn't already exist.
+2. **`register()`**: Prompts for credentials, inserts them with default follows and following counts set to `0`, and commits the transaction.
+3. **`login()`**: Queries the record corresponding to the username, verifies the existence of the user, and validates both mail and password credentials.
+4. **`adminDisplay()`**: Retrieves all records from the database and prints them out.
+
+#### 📝 Python Code ([main.py](file:///c:/Users/vijay/Desktop/pythonCourse/week_03/main.py))
+```python
+import sqlite3
+
+conn = sqlite3.connect('facebook.db')
+cursor = conn.cursor()
+
+def createTable():
+  query = 'CREATE TABLE IF NOT EXISTS users(username VARCHAR(50), mail VARCHAR(50), password VARCHAR(15), follows INTEGER, following INTEGER)'
+  cursor.execute(query)
+  print("Create Table - Users -")
+
+def adminDisplay():
+  query = "SELECT * FROM users;"
+  cursor.execute(query)
+  users = cursor.fetchall()
+
+  for user in users:
+    print(*user)
+
+def login():
+  username = input("Enter username: ") 
+  mail = input("Enter mail: ")
+  password = input("Enter password: ")
+
+  # Collecting details using parameter query
+  query = "SELECT * FROM users WHERE username = ?;"
+  cursor.execute(query, (username,))
+  user_details = cursor.fetchone()
+
+  if not user_details:
+    print("No such user exists.")
+    return
+
+  correct_mail = user_details[1]
+  correct_pwd = user_details[2]
+
+  # Credential Comparison
+  if mail == correct_mail:
+    if password == correct_pwd:
+      print("Login done. Welcome back.")
+    else:
+      print("Incorrect password.")
+  else:
+    print("Incorrect mail.")
+
+def register():
+  username = input("Enter username: ")
+  mail = input("Enter mail: ")
+  password = input("Enter password: ")
+
+  query = "INSERT INTO users(username, mail, password, follows, following) VALUES(?,?,?,0,0);"
+  cursor.execute(query, (username, mail, password))
+  conn.commit()
+
+  print("Registration completed. Welcome to facebook.")
+
+choice = 0
+while choice != 4:
+  choice = int(input("Select choice: \n 1)Login 2)Register 3)Admin 4)Exit. Make your choice: "))
+  if choice == 1:
+    login()
+  elif choice == 2:
+    register()
+  elif choice == 3:
+    adminDisplay()
+```
