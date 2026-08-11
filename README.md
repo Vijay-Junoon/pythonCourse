@@ -1496,3 +1496,105 @@ while choice != 4:
   elif choice == 3:
     adminDisplay()
 ```
+
+---
+
+## 📅 Day 18: Machine Learning Basics & Model Training
+
+On Day 18, we introduced Machine Learning (ML) basics using the `scikit-learn` (sklearn) and `pandas` libraries. We walked through the complete pipeline of building a predictive model: loading data, splitting datasets into features and target variables, performing a training and testing split, and training/testing both a **Linear Regression** and a **Random Forest Regressor** model to predict house prices.
+
+### 📊 1. Data Collection & Inspection
+In this phase, we load a house price dataset containing attributes like area (in sqft), number of bedrooms, and the age of the house to predict its price in lakhs. We leverage the `pandas` library to load and inspect the dataset.
+
+#### 📝 Python Code ([ML.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L1-L12))
+```python
+import pandas as pd
+
+# Load dataset
+dataset = pd.read_csv('data.csv')
+
+# Inspect the first few rows
+dataset.head()
+```
+
+#### 📋 Dataset Structure ([data.csv](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/data.csv)):
+| Column Name | Description |
+| :--- | :--- |
+| **`Area_sqft`** | The size of the house in square feet (Feature) |
+| **`Bedrooms`** | The number of bedrooms in the house (Feature) |
+| **`Age_years`** | The age of the house in years (Feature) |
+| **`Price_lakhs`** | The price of the house in lakhs (Target Variable) |
+
+---
+
+### ✂️ 2. Feature & Target Splitting
+To train a machine learning model, we must separate our dataset into:
+- **Features (`X`)**: The input variables used to make predictions.
+- **Target (`y`)**: The output variable we want the model to predict.
+
+We use integer-location based indexing (`.iloc`) from pandas to slice the DataFrame.
+
+#### 📝 Python Code ([ML.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L121-L126))
+```python
+# Extract all columns except the last one as features
+X = dataset.iloc[:, :-1]
+
+# Extract the last column as the target variable
+y = dataset.iloc[:, -1]
+```
+
+---
+
+### 🧪 3. Training & Testing Split
+To evaluate our model's performance on unseen data, we divide our features and target into training sets (for model learning) and testing sets (for evaluation). We use [train_test_split](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L135-L146) from `sklearn.model_selection`.
+
+#### 📝 Python Code ([ML.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L135-L146))
+```python
+from sklearn.model_selection import train_test_split
+
+# Split into 70% training and 30% testing data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+```
+- `test_size = 0.3` reserves 30% of the dataset for testing.
+- `random_state = 42` ensures reproducible splits across different runs.
+
+---
+
+### 📈 4. Linear Regression
+[LinearRegression](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L155-L166) establishes a linear relationship between the input features and the continuous target variable.
+
+#### 📝 Python Code ([ML.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L155-L166))
+```python
+from sklearn.linear_model import LinearRegression
+
+# Instantiate the model
+model = LinearRegression()
+
+# Train the model using the training sets
+model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = model.predict(X_test)
+print(y_pred)
+```
+
+---
+
+### 🌳 5. Random Forest Regressor
+[RandomForestRegressor](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L783-L796) is an ensemble learning method that constructs multiple decision trees during training and outputs the average prediction of the individual trees for regression tasks.
+
+#### 📝 Python Code ([ML.ipynb](file:///c:/Users/vijay/Desktop/pythonCourse/week_04/ML.ipynb#L783-L796))
+```python
+from sklearn.ensemble import RandomForestRegressor
+
+# Instantiate the model
+model = RandomForestRegressor()
+
+# Train the model using the training sets
+model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = model.predict(X_test)
+print(y_pred)
+```
+
