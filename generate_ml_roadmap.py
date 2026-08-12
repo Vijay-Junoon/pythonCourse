@@ -76,12 +76,13 @@ class NumberedCanvas(canvas.Canvas):
 
 def escape_and_format(text):
     """
-    Escapes HTML entities and parses inline markdown:
+    Escapes raw XML entities (like ampersands) and parses inline markdown:
+    - & to &amp; (only if not already an entity)
     - **bold** to <b>bold</b>
     - *italic* to <i>italic</i>
     - `code` to courier font
     """
-    text = html.escape(text)
+    text = re.sub(r'&(?!(amp|lt|gt|quot|apos);)', '&amp;', text)
     text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
     text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
     text = re.sub(
@@ -576,7 +577,7 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
     ]
     
     for name, level, why, suff in prereqs:
-        story.append(Paragraph(f"<b>{name}</b>", h3_style))
+        story.append(Paragraph(f"<b>{escape_and_format(name)}</b>", h3_style))
         story.append(create_callout_box(f"<b>Why it matters:</b> {why}<br/><b>Sufficient competency:</b> {suff}", level, styles))
         story.append(Spacer(1, 4))
         
