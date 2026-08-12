@@ -153,9 +153,9 @@ def get_algorithm_blocks(styles):
         Paragraph("1. Linear Regression", h2_style),
         create_callout_box("Foundational algorithm for continuous target prediction.", "MUST", styles),
         Paragraph("<b>1. Intuition:</b> Modeling a linear relationship between features and target by fitting a straight line that minimizes distance to the actual data points.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> $y = \\mathbf{w}^T\\mathbf{x} + b$, where $\\mathbf{w}$ represents weights and $b$ represents bias.", body_style),
-        Paragraph("<b>3. Objective Function:</b> Mean Squared Error (MSE): $\\text{MSE} = \\frac{1}{N} \\sum_{i=1}^N (y_i - (\\mathbf{w}^T\\mathbf{x}_i + b))^2$.", body_style),
-        Paragraph("<b>4. Training Process:</b> Optimization via Gradient Descent (iterative updates) or Ordinary Least Squares (OLS) closed-form solver: $\\mathbf{w} = (X^T X)^{-1} X^T y$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> <i>y</i> = <b>w</b><sup>T</sup><b>x</b> + <i>b</i>, where <b>w</b> represents the weights vector, <b>x</b> represents the input features vector, and <i>b</i> represents the bias.", body_style),
+        Paragraph("<b>3. Objective Function:</b> Mean Squared Error (MSE) = (1/N) * Sum( (<i>y<sub>i</sub></i> - (<b>w</b><sup>T</sup><b>x</b><sub><i>i</i></sub> + <i>b</i>))<sup>2</sup> )", body_style),
+        Paragraph("<b>4. Training Process:</b> Optimization via Gradient Descent (iterative updates) or Ordinary Least Squares (OLS) closed-form solver: <b>w</b> = (<i>X</i><sup>T</sup><i>X</i>)<sup>-1</sup><i>X</i><sup>T</sup><i>y</i>.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `fit_intercept` (bool), L1/L2 regularization parameters if using Ridge/Lasso.", body_style),
         Paragraph("<b>6. Advantages:</b> Simple, highly interpretable, fast training, no tuning needed.", body_style),
         Paragraph("<b>7. Disadvantages:</b> Assumes linear relations, sensitive to outliers and multicollinearity.", body_style),
@@ -172,7 +172,7 @@ def get_algorithm_blocks(styles):
         Paragraph("2. Polynomial Regression", h2_style),
         create_callout_box("Extends linear models to fit curves.", "SHOULD", styles),
         Paragraph("<b>1. Intuition:</b> Fits a non-linear curve by transforming linear features into polynomial combinations (e.g., squaring or cubing inputs) and applying a linear model.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> $y = w_0 + w_1 x + w_2 x^2 + ... + w_d x^d$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> <i>y</i> = <i>w</i><sub>0</sub> + <i>w</i><sub>1</sub><i>x</i> + <i>w</i><sub>2</sub><i>x</i><sup>2</sup> + ... + <i>w<sub>d</sub></i><i>x<sup>d</sup></i>.", body_style),
         Paragraph("<b>3. Objective Function:</b> Mean Squared Error (MSE).", body_style),
         Paragraph("<b>4. Training Process:</b> Transforms features using `PolynomialFeatures` followed by training standard Linear Regression (OLS or Gradient Descent).", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `degree` (degree of polynomial expansion), `interaction_only`.", body_style),
@@ -180,7 +180,7 @@ def get_algorithm_blocks(styles):
         Paragraph("<b>7. Disadvantages:</b> Prone to severe overfitting at high degrees, poor extrapolation behavior.", body_style),
         Paragraph("<b>8. Failure Cases:</b> Extrapolating beyond training data ranges leads to erratic predictions.", body_style),
         Paragraph("<b>9. When to Use:</b> When a curved relationship is visible but dataset dimensions are low.", body_style),
-        Paragraph("<b>10. Interview Question:</b> <i>Why is Polynomial Regression still considered a 'linear' model?</i> (Because the parameters/weights $\\mathbf{w}$ enter the equation linearly).", body_style),
+        Paragraph("<b>10. Interview Question:</b> <i>Why is Polynomial Regression still considered a 'linear' model?</i> (Because the parameters/weights <b>w</b> enter the equation linearly).", body_style),
         Paragraph("<b>11. Implementation:</b>", body_style),
         make_code_block("from sklearn.preprocessing import PolynomialFeatures\nfrom sklearn.linear_model import LinearRegression\npoly = PolynomialFeatures(degree=2)\nX_poly = poly.fit_transform(X)\nmodel = LinearRegression().fit(X_poly, y)", code_style),
         Spacer(1, 12)
@@ -191,8 +191,8 @@ def get_algorithm_blocks(styles):
         Paragraph("3. Logistic Regression", h2_style),
         create_callout_box("The foundational baseline for binary and multi-class classification.", "MUST", styles),
         Paragraph("<b>1. Intuition:</b> Predicts probability of membership in a class using the Sigmoid (logistic) function, outputting a value between 0 and 1.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> $p = \\sigma(\\mathbf{w}^T\\mathbf{x} + b) = \\frac{1}{1 + e^{-(\\mathbf{w}^T\\mathbf{x} + b)}}$.", body_style),
-        Paragraph("<b>3. Objective Function:</b> Binary Cross-Entropy (Log Loss): $L = -\\frac{1}{N} \\sum [y_i \\log(p_i) + (1 - y_i)\\log(1 - p_i)]$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> <i>p</i> = Sigmoid(<b>w</b><sup>T</sup><b>x</b> + <i>b</i>) = 1 / (1 + <i>e</i><sup>-(<b>w</b><sup>T</sup><b>x</b> + <i>b</i>)</sup>).", body_style),
+        Paragraph("<b>3. Objective Function:</b> Binary Cross-Entropy (Log Loss): <i>L</i> = -(1/N) * Sum( <i>y<sub>i</sub></i> * log(<i>p<sub>i</sub></i>) + (1 - <i>y<sub>i</sub></i>) * log(1 - <i>p<sub>i</sub></i>) ).", body_style),
         Paragraph("<b>4. Training Process:</b> Maximum Likelihood Estimation optimized using gradient descent or coordinate descent.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `C` (inverse regularization strength), `penalty` ('l1', 'l2', 'elasticnet'), `solver` ('lbfgs', 'saga').", body_style),
         Paragraph("<b>6. Advantages:</b> Extremely fast, outputs calibrated probabilities, easy to regularize, interpretable weights.", body_style),
@@ -209,16 +209,16 @@ def get_algorithm_blocks(styles):
     knn = [
         Paragraph("4. K-Nearest Neighbors (KNN)", h2_style),
         create_callout_box("Instance-based non-parametric classifier.", "SHOULD", styles),
-        Paragraph("<b>1. Intuition:</b> Classifies a data point based on the majority vote of its $k$ closest neighbors in feature space.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> Euclidean distance: $d(\\mathbf{p}, \\mathbf{q}) = \\sqrt{\\sum (p_i - q_i)^2}$. Other metrics include Manhattan and Cosine distance.", body_style),
+        Paragraph("<b>1. Intuition:</b> Classifies a data point based on the majority vote of its <i>k</i> closest neighbors in feature space.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> Euclidean distance: <i>d</i>(<b>p</b>, <b>q</b>) = square_root( Sum( (<i>p<sub>i</sub></i> - <i>q<sub>i</sub></i>)<sup>2</sup> ) ). Other metrics include Manhattan and Cosine distance.", body_style),
         Paragraph("<b>3. Objective Function:</b> No explicit global objective function to minimize; it is a lazy learner.", body_style),
         Paragraph("<b>4. Training Process:</b> Lazy training; it simply stores the training dataset. All computations occur at inference time.", body_style),
-        Paragraph("<b>5. Hyperparameters:</b> `n_neighbors` ($k$), `weights` ('uniform', 'distance'), `metric` ('euclidean', 'manhattan').", body_style),
+        Paragraph("<b>5. Hyperparameters:</b> `n_neighbors` (<i>k</i>), `weights` ('uniform', 'distance'), `metric` ('euclidean', 'manhattan').", body_style),
         Paragraph("<b>6. Advantages:</b> Simple, adaptive to new data, non-parametric (no assumptions about data distribution).", body_style),
         Paragraph("<b>7. Disadvantages:</b> Very slow inference on large data, memory-intensive, highly sensitive to feature scaling and noise.", body_style),
         Paragraph("<b>8. Failure Cases:</b> High dimensional datasets (due to the curse of dimensionality, distances collapse).", body_style),
         Paragraph("<b>9. When to Use:</b> For small, low-dimensional datasets where local boundaries are highly irregular.", body_style),
-        Paragraph("<b>10. Interview Question:</b> <i>How does $k$ affect the bias-variance tradeoff?</i> (A small $k$ leads to low bias but high variance; a large $k$ leads to high bias but low variance).", body_style),
+        Paragraph("<b>10. Interview Question:</b> <i>How does k affect the bias-variance tradeoff?</i> (A small <i>k</i> leads to low bias but high variance; a large <i>k</i> leads to high bias but low variance).", body_style),
         Paragraph("<b>11. Implementation:</b>", body_style),
         make_code_block("from sklearn.neighbors import KNeighborsClassifier\nmodel = KNeighborsClassifier(n_neighbors=5)\nmodel.fit(X_train, y_train)", code_style),
         Spacer(1, 12)
@@ -229,7 +229,7 @@ def get_algorithm_blocks(styles):
         Paragraph("5. Naive Bayes", h2_style),
         create_callout_box("Extremely fast classifier based on conditional independence.", "SHOULD", styles),
         Paragraph("<b>1. Intuition:</b> Classifies text or categorical vectors using Bayes' Theorem, making the 'naive' assumption that all features are independent given the class.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> $P(y|\\mathbf{x}) \\propto P(y) \\prod_{i=1}^d P(x_i|y)$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> <i>P</i>(<i>y</i> | <b>x</b>) is proportional to <i>P</i>(<i>y</i>) * Product( <i>P</i>(<i>x<sub>i</sub></i> | <i>y</i>) ).", body_style),
         Paragraph("<b>3. Objective Function:</b> Maximum a Posteriori (MAP) decision rule.", body_style),
         Paragraph("<b>4. Training Process:</b> Simply counting feature frequencies under each class to compute prior and likelihood probabilities.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `alpha` (additive Laplace smoothing parameter).", body_style),
@@ -237,7 +237,7 @@ def get_algorithm_blocks(styles):
         Paragraph("<b>7. Disadvantages:</b> Feature independence assumption is almost never true in real data.", body_style),
         Paragraph("<b>8. Failure Cases:</b> Highly correlated features degrade performance significantly.", body_style),
         Paragraph("<b>9. When to Use:</b> Text classification baselines (e.g., spam detection, sentiment analysis).", body_style),
-        Paragraph("<b>10. Interview Question:</b> <i>What is Laplace smoothing and why is it needed?</i> (It avoids the 'zero probability' problem by adding a small value $\\alpha$ to count frequencies).", body_style),
+        Paragraph("<b>10. Interview Question:</b> <i>What is Laplace smoothing and why is it needed?</i> (It avoids the 'zero probability' problem by adding a small value alpha to count frequencies).", body_style),
         Paragraph("<b>11. Implementation:</b>", body_style),
         make_code_block("from sklearn.naive_bayes import MultinomialNB\nmodel = MultinomialNB(alpha=1.0)\nmodel.fit(X_train, y_train)", code_style),
         Spacer(1, 12)
@@ -248,7 +248,7 @@ def get_algorithm_blocks(styles):
         Paragraph("6. Decision Trees", h2_style),
         create_callout_box("Highly interpretable rule-based model.", "MUST", styles),
         Paragraph("<b>1. Intuition:</b> Splitting data recursively using simple decision rules (e.g., if age > 30) that maximize separation between classes.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> Splitting criteria: Gini Impurity: $1 - \\sum p_i^2$, or Entropy: $-\\sum p_i \\log_2 p_i$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> Splitting criteria: Gini Impurity = 1 - Sum( <i>p<sub>i</sub></i><sup>2</sup> ), or Entropy = -Sum( <i>p<sub>i</sub></i> * log<sub>2</sub>(<i>p<sub>i</sub></i>) ).", body_style),
         Paragraph("<b>3. Objective Function:</b> Maximizing Information Gain (reduction in Gini/Entropy) at each split.", body_style),
         Paragraph("<b>4. Training Process:</b> Greedy search to find the feature and split threshold that maximizes information gain, recursively partitioning data until stopping criteria are met.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `max_depth`, `min_samples_split`, `min_samples_leaf`, `criterion` ('gini', 'entropy').", body_style),
@@ -267,9 +267,9 @@ def get_algorithm_blocks(styles):
         Paragraph("7. Random Forest", h2_style),
         create_callout_box("Robust ensemble model using bagging of independent decision trees.", "MUST", styles),
         Paragraph("<b>1. Intuition:</b> Aggregates a large number of independent, deep decision trees trained on random bootstrap samples of data and random subsets of features.", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> Bootstrap Aggregating (Bagging) + Subspace Sampling. Variance reduces by a factor of $M$ if models are uncorrelated.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> Bootstrap Aggregating (Bagging) + Subspace Sampling. Variance reduces by a factor of <i>M</i> if models are uncorrelated.", body_style),
         Paragraph("<b>3. Objective Function:</b> Minimizing overall variance without increasing bias.", body_style),
-        Paragraph("<b>4. Training Process:</b> Generates $M$ bootstrap samples of the training set, trains a deep decision tree on each (choosing from a random subset of features at each split node), and averages their predictions.", body_style),
+        Paragraph("<b>4. Training Process:</b> Generates <i>M</i> bootstrap samples of the training set, trains a deep decision tree on each (choosing from a random subset of features at each split node), and averages their predictions.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `n_estimators`, `max_features`, `max_depth`, `min_samples_leaf`, `bootstrap` (bool).", body_style),
         Paragraph("<b>6. Advantages:</b> Very robust, avoids overfitting, handles high dimensionality, provides feature importance.", body_style),
         Paragraph("<b>7. Disadvantages:</b> Slower inference, large memory footprint, acts as a 'black box' compared to a single tree.", body_style),
@@ -286,7 +286,7 @@ def get_algorithm_blocks(styles):
         Paragraph("8. Gradient Boosting (GBDT)", h2_style),
         create_callout_box("Sequential boosting of decision trees.", "MUST", styles),
         Paragraph("<b>1. Intuition:</b> Trains weak decision trees sequentially, where each new tree is trained to predict the residual errors (gradients) of the ensemble up to that point.", body_style),
-        Paragraph(r"<b>2. Mathematical Idea:</b> $F_m(x) = F_{m-1}(x) + \gamma_m h_m(x)$, performing gradient descent in function space.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> <i>F<sub>m</sub></i>(<i>x</i>) = <i>F<sub>m-1</sub></i>(<i>x</i>) + learning_rate * <i>h<sub>m</sub></i>(<i>x</i>), performing gradient descent in function space.", body_style),
         Paragraph("<b>3. Objective Function:</b> Any differentiable loss function (e.g., MSE for regression, log-loss for classification).", body_style),
         Paragraph("<b>4. Training Process:</b> Computes pseudo-residuals, fits a shallow tree to these residuals, computes optimal step size, updates ensemble, and repeats.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `learning_rate` (shrinkage), `n_estimators`, `max_depth`, `subsample`.", body_style),
@@ -305,7 +305,7 @@ def get_algorithm_blocks(styles):
         Paragraph("9. XGBoost (eXtreme Gradient Boosting)", h2_style),
         create_callout_box("Highly optimized, industry-standard GBDT library.", "MUST", styles),
         Paragraph("<b>1. Intuition:</b> A highly optimized GBDT version featuring parallel tree building, regularized objective functions, and hardware-accelerated processing.", body_style),
-        Paragraph(r"<b>2. Mathematical Idea:</b> Taylor series expansion of objective: $L^{(t)} \approx \sum [g_i f_t(x_i) + \frac{1}{2}h_i f_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda \sum w_j^2$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> Taylor series expansion of objective: <i>Loss</i><sup>(<i>t</i>)</sup> approx. Sum( <i>g<sub>i</sub></i>*<i>f<sub>t</sub></i>(<i>x<sub>i</sub></i>) + 0.5*<i>h<sub>i</sub></i>*<i>f<sub>t</sub></i><sup>2</sup>(<i>x<sub>i</sub></i>) ) + gamma*<i>T</i> + 0.5*lambda*Sum( <i>w<sub>j</sub></i><sup>2</sup> ), where <i>g<sub>i</sub></i> and <i>h<sub>i</sub></i> are the first and second order gradients.", body_style),
         Paragraph("<b>3. Objective Function:</b> Loss function plus L1/L2 regularization terms on leaf weights and number of leaves.", body_style),
         Paragraph("<b>4. Training Process:</b> Grows trees level-wise, utilizing a fast histogram-based split finder and weighted quantile sketches.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `eta` (learning_rate), `max_depth`, `lambda` (L2 regularization), `alpha` (L1 regularization), `subsample`, `colsample_bytree`.", body_style),
@@ -329,7 +329,7 @@ def get_algorithm_blocks(styles):
         Paragraph("<b>4. Training Process:</b> Grows trees leaf-wise (splitting on leaves with maximum loss reduction) instead of depth/level-wise.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `num_leaves`, `max_depth`, `learning_rate`, `min_data_in_leaf`, `feature_fraction`.", body_style),
         Paragraph("<b>6. Advantages:</b> Extremely fast training, highly memory efficient, natively handles massive datasets.", body_style),
-        Paragraph("<b>7. Disadvantages:</b> Leaf-wise growth can cause severe overfitting on small datasets ($<10,000$ samples) if parameters aren't tuned.", body_style),
+        Paragraph("<b>7. Disadvantages:</b> Leaf-wise growth can cause severe overfitting on small datasets (&lt; 10,000 samples) if parameters aren't tuned.", body_style),
         Paragraph("<b>8. Failure Cases:</b> Very small datasets where high capacity causes rapid overfitting.", body_style),
         Paragraph("<b>9. When to Use:</b> Large-scale tabular datasets (millions of rows) where training speed is a major bottleneck.", body_style),
         Paragraph("<b>10. Interview Question:</b> <i>Compare leaf-wise and level-wise tree growth.</i> (Level-wise grows the entire tree level by level; leaf-wise splits only the single leaf with the highest loss reduction, resulting in deeper, asymmetrical trees).", body_style),
@@ -362,12 +362,12 @@ def get_algorithm_blocks(styles):
         Paragraph("12. Support Vector Machines (SVM)", h2_style),
         create_callout_box("Finds the optimal separating hyperplane that maximizes the class margin.", "SHOULD", styles),
         Paragraph("<b>1. Intuition:</b> Fits a decision boundary that maximizes the distance (margin) between the boundary and the closest data points of each class (support vectors).", body_style),
-        Paragraph("<b>2. Mathematical Idea:</b> Kernel Trick: $K(x, z) = \\phi(x)^T\\phi(z)$ computes dot products in high-dimensional spaces implicitly.", body_style),
-        Paragraph("<b>3. Objective Function:</b> Margin maximization with soft-margin hinge loss: $\\min \\frac{1}{2}||\\mathbf{w}||^2 + C \\sum \\xi_i$.", body_style),
+        Paragraph("<b>2. Mathematical Idea:</b> Kernel Trick: <i>K</i>(<i>x</i>, <i>z</i>) = phi(<i>x</i>)<sup>T</sup>phi(<i>z</i>) computes dot products in high-dimensional spaces implicitly.", body_style),
+        Paragraph("<b>3. Objective Function:</b> Margin maximization with soft-margin hinge loss: Min 0.5 * ||<b>w</b>||<sup>2</sup> + C * Sum( xi<sub><i>i</i></sub> ).", body_style),
         Paragraph("<b>4. Training Process:</b> Solving a quadratic programming optimization problem to identify support vectors.", body_style),
         Paragraph("<b>5. Hyperparameters:</b> `C` (trade-off between margin width and classification errors), `kernel` ('linear', 'rbf', 'poly'), `gamma` (kernel coefficient).", body_style),
         Paragraph("<b>6. Advantages:</b> High accuracy on complex datasets, memory efficient (only stores support vectors), performs well in high dimensions.", body_style),
-        Paragraph("<b>7. Disadvantages:</b> Computationally expensive on large datasets ($O(N^3)$ complexity), no native probability outputs.", body_style),
+        Paragraph("<b>7. Disadvantages:</b> Computationally expensive on large datasets (<i>O</i>(<i>N</i><sup>3</sup>) complexity), no native probability outputs.", body_style),
         Paragraph("<b>8. Failure Cases:</b> Massive datasets where training time becomes prohibitive.", body_style),
         Paragraph("<b>9. When to Use:</b> Small-to-medium sized datasets with non-linear boundaries.", body_style),
         Paragraph("<b>10. Interview Question:</b> <i>What is the Kernel Trick and why is it useful?</i> (It projects data into a higher-dimensional space where classes are linearly separable, without ever computing coordinates in that high-dimensional space).", body_style),
@@ -625,7 +625,7 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
         ("Categorical Encoding", "MUST", "One-hot encoding for nominal variables without order. Label/Ordinal encoding for ordered variables. Target/Mean encoding for high cardinality (e.g., zip codes)."),
         ("Scaling & Normalization", "MUST", "Ensuring distance-based models (KNN, SVM, K-Means) and gradient descents aren't dominated by large magnitudes. Standardize (mean=0, std=1) or Normalize (scale to 0-1)."),
         ("Feature Transformations", "SHOULD", "Applying Log, Box-Cox, or Yeo-Johnson transforms to convert highly skewed distributions into Gaussian distributions."),
-        ("Feature Engineering", "MUST", "Creating new predictors out of existing fields: extraction (e.g., day_of_week from datetime), aggregations, and interaction terms ($x_1 \\times x_2$)."),
+        ("Feature Engineering", "MUST", "Creating new predictors out of existing fields: extraction (e.g., day_of_week from datetime), aggregations, and interaction terms (<i>x</i><sub>1</sub> * <i>x</i><sub>2</sub>)."),
         ("Feature Selection", "SHOULD", "Reducing dimensionality to fight overfitting. Use filter methods (correlation, mutual info), wrapper methods (RFE), or embedded methods (L1 Lasso, tree importances)."),
         ("Data Leakage Prevention", "MUST", "Critical error where test information bleeds into training. Fix by split-first before fitting scalers or imputers, and avoid utilizing future target values."),
         ("Data Splitting Strategies", "MUST", "Train/Validation/Test splits. Use Stratified splits for class imbalances; temporal/rolling-window splits for time-series forecasting."),
@@ -655,7 +655,7 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
     story.append(Paragraph("Finding hidden patterns or structural representations in unlabeled datasets.", body_style))
     
     unsupervised = [
-        ("K-Means Clustering", "MUST", "Partitions data into $K$ spherical clusters by iteratively updating centroids to minimize inertia (within-cluster sum of squares). Determine optimal $K$ via the Elbow Method or Silhouette Score."),
+        ("K-Means Clustering", "MUST", "Partitions data into <i>K</i> spherical clusters by iteratively updating centroids to minimize inertia (within-cluster sum of squares). Determine optimal <i>K</i> via the Elbow Method or Silhouette Score."),
         ("Hierarchical Clustering", "SHOULD", "Builds a tree of clusters (dendrogram) using agglomerative (bottom-up) or divisive (top-down) pathways. LINKAGE criteria (Ward, complete, average) dictates merging rules."),
         ("DBSCAN Clustering", "MUST", "Density-Based Spatial Clustering of Applications with Noise. Groups points close to each other while tagging outliers in sparse regions as noise. Handles arbitrary shapes."),
         ("Gaussian Mixture Models (GMM)", "ADVANCED", "Soft clustering model representing clusters as overlapping Gaussian distributions. Optimized using Expectation-Maximization (EM) algorithm."),
@@ -740,7 +740,7 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
     story.append(Paragraph("Techniques for fine-tuning models, regularizing equations, and interpreting black-box decision models.", body_style))
     
     advanced_ml = [
-        ("Regularization (L1, L2, Elastic Net)", "MUST", "L1 (Lasso) adds absolute coefficient weights penalty ($||w||_1$), inducing weight sparsity (feature selection). L2 (Ridge) adds squared weights penalty ($||w||_2^2$), shrinking weights. Elastic Net combines both."),
+        ("Regularization (L1, L2, Elastic Net)", "MUST", "L1 (Lasso) adds absolute coefficient weights penalty (||<b>w</b>||<sub>1</sub>), inducing weight sparsity (feature selection). L2 (Ridge) adds squared weights penalty (||<b>w</b>||<sub>2</sub><sup>2</sup>), shrinking weights. Elastic Net combines both."),
         ("Hyperparameter Tuning (Bayesian Optimization)", "MUST", "Moving beyond slow Grid Search and Random Search. Bayesian optimization (e.g., Optuna) builds a surrogate probability model of the objective function to select optimal hyperparameters efficiently."),
         ("Probability Calibration", "SHOULD", "Ensures output probabilities correspond to real frequencies. Calibrate uncalibrated models (e.g., SVMs, Random Forests) using Platt Scaling (sigmoid) or Isotonic Regression."),
         ("Explainable AI (SHAP & LIME)", "SHOULD", "SHAP (Shapley Additive exPlanations) utilizes cooperative game theory to explain individual feature contributions. LIME builds local surrogate linear models around specific predictions."),
@@ -760,7 +760,7 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
     timeseries = [
         ("Stationarity & Statistics", "MUST", "A stationary time-series has constant mean, variance, and autocorrelation over time. Test using the Augmented Dickey-Fuller (ADF) test. Make stationary using differencing or log-scaling."),
         ("Classical Forecasting Models", "SHOULD", "Autoregressive (AR), Moving Average (MA), ARIMA, and SARIMA (adds seasonality). Exponential Smoothing (ETS) models trend and seasonality exponentially."),
-        ("Feature-Based ML Forecasting", "MUST", "Converting time series to a supervised tabular format. Create lag features ($y_{t-1}$), rolling window features (e.g., 7-day mean), and calendar features (day of week, month)."),
+        ("Feature-Based ML Forecasting", "MUST", "Converting time series to a supervised tabular format. Create lag features (<i>y</i><sub><i>t</i>-1</sub>), rolling window features (e.g., 7-day mean), and calendar features (day of week, month)."),
         ("Validation & Evaluation", "MUST", "Use TimeSeriesSplit (expanding window cross-validation) to prevent target leakage from future data. Evaluate using Mean Absolute Percentage Error (MAPE) or MASE.")
     ]
     for name, level, desc in timeseries:
@@ -796,7 +796,7 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
     mlops = [
         ("Continuous Integration & Deployment (CI/CD)", "SHOULD", "Automating testing of training scripts and model prediction APIs. Automatically building and deploying validated services to staging/production."),
         ("Cloud Infrastructure", "SHOULD", "Deploying models to cloud environments. Familiarity with managed services like AWS SageMaker, GCP Vertex AI, or raw containers on AWS ECS/EKS."),
-        ("Model & Data Drift Monitoring", "MUST", "Data Drift: input distribution changes ($P(X)$). Concept Drift: relationship between input and target changes ($P(Y|X)$). Model Drift: metrics (e.g. Accuracy) decay. Detect using KS-test or PSI."),
+        ("Model & Data Drift Monitoring", "MUST", "Data Drift: input distribution changes (<i>P</i>(<i>X</i>)). Concept Drift: relationship between input and target changes (<i>P</i>(<i>Y</i>|<i>X</i>)). Model Drift: metrics decay. Detect using KS-test or PSI."),
         ("Observability & Logging", "SHOULD", "Storing inputs, predictions, service latency, CPU/memory metrics, and implementing silent fail-safes and model rollback mechanisms.")
     ]
     for name, level, desc in mlops:
@@ -880,8 +880,8 @@ def build_pdf(filename="Machine_Learning_Specialist_Roadmap.pdf"):
     questions_list = [
         ("Why does regularization work?",
          "Regularization works by adding a penalty to the loss function that discourages model coefficients from growing too large. "
-         "L1 (Lasso) adds an absolute weight penalty ($||w||_1$), forcing insignificant weights to zero (creating sparse feature models). "
-         "L2 (Ridge) adds a squared weight penalty ($||w||_2^2$), shrinking weights smoothly. "
+         "L1 (Lasso) adds an absolute weight penalty (||<b>w</b>||<sub>1</sub>), forcing insignificant weights to zero (creating sparse feature models). "
+         "L2 (Ridge) adds a squared weight penalty (||<b>w</b>||<sub>2</sub><sup>2</sup>), shrinking weights smoothly. "
          "This restricts model capacity and prevents it from fitting training noise, thereby improving generalization on unseen test data."),
         
         ("Why does XGBoost perform so well?",
