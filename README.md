@@ -1650,3 +1650,117 @@ response = client.chat.completions.create(
 # Display the output
 print(response.choices[0].message.content)
 ```
+
+---
+
+## 📅 Day 20: Final Project - AI-Powered Diabetes Prediction & Inference
+
+On Day 20, we built our final project: an interactive AI-powered diagnostic and recommendation system for diabetes. The application integrates traditional Machine Learning (classification) with generative Large Language Models (LLMs) to predict diabetes probability and deliver personalized medical guidance based on a patient's health metrics.
+
+### 📁 Project Structure
+The project is organized under the [final_project](file:///c:/Users/vijay/Desktop/pythonCourse/final_project) directory:
+- **[data.csv](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/data.csv)**: A dataset containing historical patient data (Age, BMI, Glucose, Blood Pressure, and Diabetes label).
+- **[model.py](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/model.py)**: Logistic Regression classifier trained on patient data to predict the presence of diabetes.
+- **[guidance.py](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/guidance.py)**: Integrates the Groq API and `llama-3.3-70b-versatile` model to generate custom clinical guidance.
+- **[main.py](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/main.py)**: The main script prompting user inputs, running model inference, and calling the LLM guidance module.
+
+---
+
+### 📊 1. The Dataset
+The model trains on a 5-column dataset capturing essential clinical indicators.
+
+| Feature Name | Description |
+| :--- | :--- |
+| **`Age`** | Age of the patient in years |
+| **`BMI`** | Body Mass Index (weight in kg / height in m²) |
+| **`Glucose`** | Blood glucose concentration |
+| **`BloodPressure`** | Diastolic blood pressure (mm Hg) |
+| **`Diabetes`** | Target label: `0` (No Diabetes), `1` (Diabetes) |
+
+---
+
+### 🤖 2. Model Training & Prediction
+Using `scikit-learn`, we train a **Logistic Regression** model. We split the data into training and testing sets, fit the model, and expose a prediction interface.
+
+#### 📝 Python Code ([model.py](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/model.py))
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+# Importing the dataset
+dataset = pd.read_csv('data.csv')
+
+# Splitting the dataset into Features and Target
+X = dataset.iloc[:,:-1]
+y = dataset.iloc[:,-1]
+
+# Split the dataset into training and testing set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialized and train the model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Testing / Prediction function
+def predict(age, bmi, glucose, bp):
+  y_pred = model.predict([[age, bmi, glucose, bp]])  
+  if y_pred[0] == 0:
+    return 'No Diabetes'
+  return 'Diabetes'
+```
+
+---
+
+### 💡 3. AI-Powered Lifestyle Inference & Guidance
+We utilize the Groq API and a state-of-the-art LLM to generate custom lifestyle suggestions for the patient. By feeding the user's vitals and the ML model's prediction as context, the LLM provides personalized, natural language recommendations.
+
+#### 📝 Python Code ([guidance.py](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/guidance.py))
+```python
+from groq import Groq
+
+GROQ_API_KEY = 'YOUR_API_KEY'
+client = Groq(api_key=GROQ_API_KEY)
+
+def getGuidance(age, bmi, glucose, bp, prediction):
+  prompt = f"""
+    You are an expert in diabetes diagnosis. The following data includes age, BMI, glucose, blood pressure and a machine learning prediction of a patient. Your job is to analyze these parameters, and then give suitable suggestions inorder to maintain a better lifestyle.
+    Data: Age: {age}, BMI: {bmi}, Glucose: {glucose}, Blood Pressure: {bp}, Prediction: {prediction}
+    """
+
+  response = client.chat.completions.create(
+    model = 'llama-3.3-70b-versatile',
+    messages = [
+      {
+        'role': 'user',
+        'content': prompt
+      }
+    ]
+  )
+
+  return response.choices[0].message.content
+```
+
+---
+
+### 🚀 4. Putting It All Together
+The application entry point accepts user parameters via command-line prompts, runs the machine learning classification, triggers LLM inference, and prints detailed guidance.
+
+#### 📝 Python Code ([main.py](file:///c:/Users/vijay/Desktop/pythonCourse/final_project/main.py))
+```python
+from model import predict
+from guidance import getGuidance
+
+# Get input from patient/clinician
+age = int(input("Enter your age: "))
+bmi = float(input("Enter your BMI: "))
+glucose = float(input("Enter your glucose: "))
+bp = int(input("Enter your BP: "))
+
+# Predict using Logistic Regression Model
+prediction = predict(age, bmi, glucose, bp)
+
+# Fetch personalized guidance from Llama LLM via Groq
+print(getGuidance(age, bmi, glucose, bp, prediction))
+```
+
